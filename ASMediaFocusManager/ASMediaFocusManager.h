@@ -39,6 +39,8 @@
 @property (nonatomic, assign) BOOL zoomEnabled;
 // Returns whether gesture is disabled during zooming. Defaults to YES.
 @property (nonatomic, assign) BOOL gestureDisabledDuringZooming;
+// Font for the "Done" button. Defaults to HelveticaNeueu 18px
+@property (nonatomic, strong) UIFont *doneButtonFont;
 
 - (void)installOnViews:(NSArray *)views;
 - (void)installOnView:(UIView *)view;
