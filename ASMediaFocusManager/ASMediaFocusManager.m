@@ -9,6 +9,7 @@
 #import "ASMediaFocusManager.h"
 #import "ASMediaFocusController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIImage+GIF.h"
 
 static CGFloat const kAnimateElasticSizeRatio = 0.03;
 static CGFloat const kAnimateElasticDurationRatio = 0.6;
@@ -129,10 +130,20 @@ static CGFloat const kAnimationDuration = 0.5;
         }
         else
         {
+            BOOL isImageGIF = [data sd_isGIF];
+            
             UIImage *image;
-
-            image = [[UIImage alloc] initWithData:data];
-            image = [self decodedImageWithImage:image];
+            if (isImageGIF)
+            {
+                image = [UIImage sd_animatedGIFWithData:data];
+            }
+            else
+            {
+                image = [[UIImage alloc] initWithData:data];
+            }
+            if (!isImageGIF) {
+                image = [self decodedImageWithImage:image];
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 viewController.mainImageView.image = image;
             });
